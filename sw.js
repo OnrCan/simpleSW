@@ -18,7 +18,6 @@ self.addEventListener('install', function (event) {
 
 self.addEventListener('fetch', function (event) {
   console.log(`WORKER: fetch event in progress`);
-  console.log(event);
   if (event.request.method !== 'GET') {
     console.log('WORKER: fetch event ignored.', event.request.method, event.request.url);
     return;
@@ -29,7 +28,6 @@ self.addEventListener('fetch', function (event) {
       .then(function (cachedInPast) {
         let networked =
           fetch(event.request.url).then(fetchedFromNetwork, unableToResolve);
-        // console.log(cachedInPast);
         console.log('WORKER: fetch event', cachedInPast ? '(cachedInPast)' : '(network)', event.request.url);
         return cachedInPast || networked;
 
